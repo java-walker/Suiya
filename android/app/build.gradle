@@ -1,0 +1,59 @@
+plugins {
+    id "com.android.application"
+    id "kotlin-android"
+    // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
+    id "dev.flutter.flutter-gradle-plugin"
+}
+
+android {
+    namespace = "com.suiya.suiya"
+
+    // 显式指定本机已安装的 SDK 版本，避免 flutter.compileSdkVersion 默认值
+    // 指向未安装的 android-34 而触发 SDK 自动下载失败
+    compileSdk = 36
+    buildToolsVersion = "35.0.0"
+    ndkVersion = flutter.ndkVersion
+
+    compileOptions {
+        // flutter_local_notifications 需要 java.time 的 desugaring 支持
+        coreLibraryDesugaringEnabled = true
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_17
+    }
+
+    defaultConfig {
+        applicationId = "com.suiya.suiya"
+        minSdkVersion = flutter.minSdkVersion
+        targetSdk = 35
+        versionCode = flutter.versionCode
+        versionName = flutter.versionName
+    }
+
+    buildTypes {
+        release {
+            // TODO: 上架前配置正式签名
+            // 当前用 debug key，保证 flutter run --release 可用
+            signingConfig = signingConfigs.debug
+        }
+    }
+
+    // 产物命名带版本号（用户要求）：suiya-v1.4.2+11.apk
+    // flutter 工具仍会在 build/app/outputs/flutter-apk/ 放一份固定名副本
+    applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            outputFileName = "suiya-v${variant.versionName}+${variant.versionCode}.apk"
+        }
+    }
+}
+
+flutter {
+    source = "../.."
+}
+
+dependencies {
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.1.4'
+}

@@ -1,0 +1,39 @@
+allprojects {
+    repositories {
+        // Flutter 引擎产物（embedding 等）—— 国内走镜像
+        maven { url 'https://storage.flutter-io.cn/download.flutter.io' }
+        maven { url 'https://maven.aliyun.com/repository/google' }
+        maven { url 'https://maven.aliyun.com/repository/public' }
+        google()
+        mavenCentral()
+    }
+}
+
+rootProject.buildDir = "../build"
+subprojects {
+    project.buildDir = "${rootProject.buildDir}/${project.name}"
+}
+subprojects {
+    project.evaluationDependsOn(":app")
+}
+
+// AGP 8.11 兼容垫片（升级 Flutter 到 3.27+ 后可删除）：
+// 插件脚本（如 geolocator_android）里的 flutter.compileSdkVersion 依赖
+// Groovy 动态属性回退到 app 项目的 flutter 扩展，AGP 8.11 的 LibraryExtension
+// 切断了这条回退链，导致 "Could not get unknown property 'flutter'"。
+// 这里在插件项目求值前注入等价属性映射，取值与 app/build.gradle 保持一致：
+// compileSdk 36 / targetSdk 35 / minSdk 21（flutter.minSdkVersion 默认值）
+subprojects { sub ->
+    if (sub.name != 'app') {
+        sub.ext.flutter = [
+            compileSdkVersion: 36,
+            targetSdkVersion : 35,
+            minSdkVersion    : 21,
+            ndkVersion       : '26.1.10909125',
+        ]
+    }
+}
+
+tasks.register("clean", Delete) {
+    delete rootProject.buildDir
+}

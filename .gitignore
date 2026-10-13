@@ -1,0 +1,101 @@
+# ======================
+# OS / Editor / IDE
+# ======================
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+*~
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+# .codebuddy 为 IDE 本地数据（规则/记忆），不纳入版本控制
+
+# ======================
+# Flutter / Dart / Pub
+# ======================
+**/doc/api/
+**/ios/Flutter/.last_build_id
+
+# Flutter 工具本地状态（本机生成，不入库）
+.flutter
+.flutter_tool_state
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.pub-cache/
+.pub/
+/build/
+
+# ======================
+# Build artifacts
+# ======================
+/android/build/
+/android/app/build/
+/ios/build/
+/ios/Pods/
+/ios/.symlinks/
+/ios/Flutter/Flutter.framework/
+/ios/Flutter/Flutter.podspec
+/android/.gradle/
+.macosx/
+windows/build/
+linux/build/
+
+# Android / iOS 打包产物（含带版本号的 APK）
+*.apk
+*.aab
+*.ipa
+suiya-v*.apk
+
+# 符号化 / 混淆产物
+app.*.symbols
+app.*.map.json
+
+# ======================
+# Sensitive info（密钥与本地配置）
+# ======================
+# 本地 SDK 路径、版本等机器相关配置
+local.properties
+android/local.properties
+
+# 签名密钥与密钥配置（绝不入库）
+*.keystore
+*.jks
+*.p12
+*.pfx
+key.properties
+android/key.properties
+**/key.properties
+
+# 环境变量 / 密钥文件
+.env
+.env.*
+*.secret
+credentials.json
+google-services.json
+GoogleService-Info.plist
+
+# ======================
+# Logs / Crash dumps
+# ======================
+*.log
+hs_err_pid*.log
+replay_pid*.log
+flutter_*.log
+
+# ======================
+# Misc
+# ======================
+*.class
+.pyc
+.atom/
+.buildlog/
+.history/
+.svn/
+migrate_working_dir/
+
+# 本仓库产生的临时分析/测试文件（_analyze.txt、_test.txt 等）
+_*.txt
