@@ -74,7 +74,7 @@ lib/
 **分层铁律：`presentation → domain ← data`。domain 层不许 import `package:flutter/*`，
 也不许 import data 层。** 这样业务规则能脱离 UI 单测，换存储/换框架不用重写。
 
-35 个 dart 文件，约 9000 行。最大的 5 个文件：
+41 个 dart 文件，约 9000 行。最大的 5 个文件：
 
 | 文件 | 行数 | 说明 |
 |---|---|---|
@@ -166,7 +166,7 @@ lib/
 
 三处要同步改，缺一处真机装上去版本显示就会错：
 
-1. `pubspec.yaml` → `version: 1.4.1+9`（`+N` 是 build number，每次 +1）
+1. `pubspec.yaml` → `version: 1.5.1+13`（`+N` 是 build number，每次 +1）
 2. `android/local.properties` → `flutter.versionName` / `flutter.versionCode`
 3. `lib/features/backup/presentation/settings_page.dart` → 关于页显示的版本文本
 
